@@ -1,5 +1,29 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField'
+
+const axios = require('axios');
+
+class Search extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  handleKeyPress(event) {
+    if(event.key === 'Enter') {
+      this.props.handleSearchByUsername(event.target.value);
+    }
+  }
+
+  render() {
+    return (
+      <TextField id="username-search" label="Search by username" onKeyPress={this.handleKeyPress} />
+    )
+  }
+
+}
+
 
 class App extends React.Component {
 
@@ -30,6 +54,7 @@ class App extends React.Component {
         <header className="App-header">
           <p>Gists App</p>
         </header>
+        <Search handleSearchByUsername={this.handleSearchByUsername} />
       </Container>
     );
   }

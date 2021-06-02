@@ -6,7 +6,9 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from "@material-ui/core/Typography";
-
+import CardActions from "@material-ui/core/CardActions";
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import IconButton from '@material-ui/core/IconButton';
 
 const axios = require('axios');
 const moment = require('moment');
@@ -49,6 +51,11 @@ class Gist extends React.Component {
               Created: {moment.utc(this.props.createdAt).local().format("M/D/YYYY h:mm a")}
             </Typography>
           </CardContent>
+          <CardActions>
+            <IconButton>
+              <FavoriteIcon />
+            </IconButton>
+          </CardActions>
         </Card>
       </Box>
     )

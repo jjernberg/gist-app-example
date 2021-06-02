@@ -72,3 +72,17 @@ def get_all_by_username(username: str) -> Iterable[Gist]:
         return []
 
 
+def get_gist_by_id(gist_id: str) -> Optional[Gist]:
+    """
+    Get a single gist from a provided gist_id
+    :param gist_id:
+    :return:
+    """
+    try:
+        result = requests.get(f'https://api.github.com/gists/{gist_id}')
+        result.raise_for_status()
+        data = result.json()
+        return _setup_gist_from_data(data)
+    except Exception:
+        # Going to swallow up errors for now and just return an empty list as if they had none
+        return None

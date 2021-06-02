@@ -3,7 +3,14 @@
 
 ## Django API and gist API service
 
-The API and service to retrieve the gists took about an hour to develop.   
+The API and service to retrieve the gists took about an hour to develop.
+
+The `gists` direction/app contains the API functionality for the challenge.   
+
+* views.py - Provides the endpoints
+* services.py - This is the requested library/service to handle interactions with the gist API
+* models.py - The DB models to store the favorites
+* serializers.py - The serializers to provide the structure for the response data
 
 ### Build Instructions
 

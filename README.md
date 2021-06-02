@@ -20,7 +20,7 @@ The `gists` direction/app contains the API functionality for the challenge.
 
 ```
 docker build -t gist-django-api .
-docker run --name gist-django-api -p 8000:8000 -d gist-django-app
+docker run --name gist-django-api -p 8000:8000 -d gist-django-api
 ```
 
 You can also run this locally using a virtualenv if you have python3 installed...

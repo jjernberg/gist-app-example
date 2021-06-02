@@ -106,7 +106,7 @@ class App extends React.Component {
       })
       .catch(error => {
         // Get to error handling if I can, but API may not return errors yet
-        console.log(error);
+        alert(error);
       });
   }
 

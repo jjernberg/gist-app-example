@@ -5,7 +5,7 @@ from rest_framework.response import Response
 
 from .models import FavoriteGist, FavoriteGistFile
 from .services import get_all_by_username, get_gist_by_id
-from .serializers import GistSerializer
+from .serializers import GistSerializer, FavoriteGist
 
 
 @api_view(['GET'])
@@ -59,7 +59,13 @@ def favorite_gist(request, gist_id: str) -> Response:
     :param gist_id:
     :return:
     """
-    return Response()
+    gist = get_gist_by_id(gist_id)
+    faved_gist = FavoriteGist.objects.create(
+        gist_id=gist_id,
+        git_username=gist.github_user,
+        description=gist.description
+    )
+    return Response(status=status.HTTP_201_CREATED)
 
 
 @api_view(['DELETE'])
@@ -70,7 +76,9 @@ def unfavorite_gist(request, gist_id: str) -> Response:
     :param gist_id:
     :return:
     """
-    return Response()
+    gist = get_object_or_404(FavoriteGist, gist_id=gist_id)
+    gist.delete()
+    return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @api_view(['POST'])

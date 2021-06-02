@@ -1,13 +1,15 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
 import Typography from "@material-ui/core/Typography";
 
 
 const axios = require('axios');
+const moment = require('moment');
 
 class Search extends React.Component {
   constructor(props) {
@@ -33,22 +35,22 @@ class Gist extends React.Component {
 
   render() {
     return (
-      <Card>
-        <CardContent>
-          <Typography>
-            Gist ID: {this.props.gistId}
-          </Typography>
-          <Typography>
-            Github User: {this.props.githubUsername}
-          </Typography>
-          <Typography>
-            Description: {this.props.description}
-          </Typography>
-          <Typography>
-            Created: {this.props.createdAt}
-          </Typography>
-        </CardContent>
-      </Card>
+      <Box m={2}>
+        <Card>
+          <CardHeader title={this.props.description} />
+          <CardContent>
+            <Typography>
+              Gist ID: {this.props.gistId}
+            </Typography>
+            <Typography>
+              Github User: {this.props.githubUsername}
+            </Typography>
+            <Typography>
+              Created: {moment.utc(this.props.createdAt).local().format("M/D/YYYY h:mm a")}
+            </Typography>
+          </CardContent>
+        </Card>
+      </Box>
     )
   }
 

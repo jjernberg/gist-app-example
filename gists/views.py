@@ -34,7 +34,11 @@ def by_id(request, gist_id: str) -> Response:
     :param gist_id:
     :return:
     """
-    return Response()
+    gist = get_gist_by_id(gist_id)
+    # If there's an object in the Db with the gist_id then assume it's favorited
+    gist.favorite = FavoriteGist.objects.filter(gist_id=gist_id).exists()
+    serializer = GistSerializer(gist)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])

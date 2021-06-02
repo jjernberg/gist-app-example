@@ -1,6 +1,11 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Typography from "@material-ui/core/Typography";
+
 
 const axios = require('axios');
 
@@ -20,6 +25,54 @@ class Search extends React.Component {
     return (
       <TextField id="username-search" label="Search by username" onKeyPress={this.handleKeyPress} />
     )
+  }
+
+}
+
+class Gist extends React.Component {
+
+  render() {
+    return (
+      <Card>
+        <CardContent>
+          <Typography>
+            Gist ID: {this.props.gistId}
+          </Typography>
+          <Typography>
+            Github User: {this.props.githubUsername}
+          </Typography>
+          <Typography>
+            Description: {this.props.description}
+          </Typography>
+          <Typography>
+            Created: {this.props.createdAt}
+          </Typography>
+        </CardContent>
+      </Card>
+    )
+  }
+
+}
+
+class GistList extends React.Component {
+
+  render() {
+    const gists = this.props.gists;
+    const gistItems = gists.map((gist) =>
+      <Gist
+        key={gist.gist_id}
+        gistId={gist.gist_id}
+        githubUsername={gist.github_user}
+        description={gist.description}
+        createdAt={gist.created_at}
+      />
+    );
+
+    return (
+      <Container>
+        {gistItems}
+      </Container>
+    );
   }
 
 }
@@ -55,6 +108,7 @@ class App extends React.Component {
           <p>Gists App</p>
         </header>
         <Search handleSearchByUsername={this.handleSearchByUsername} />
+        <GistList gists={this.state.gists} />
       </Container>
     );
   }

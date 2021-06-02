@@ -18,7 +18,7 @@ def by_username(request, username: str) -> Response:
     """
     gists = get_all_by_username(username)
     # Get a flat list of favorite IDs to compare to retrieved gists
-    favorites = FavoriteGist.objects.values('gist_id')
+    favorites = [g.gist_id for g in FavoriteGist.objects.all()]
     for gist in gists:
         # If the gist_id is in the favorites then flip the favorite
         gist.favorite = gist.gist_id in favorites
@@ -60,7 +60,7 @@ def favorite_gist(request, gist_id: str) -> Response:
     :return:
     """
     gist = get_gist_by_id(gist_id)
-    faved_gist = FavoriteGist.objects.create(
+    faved_gist = FavoriteGist.objects.get_or_create(
         gist_id=gist_id,
         git_username=gist.github_user,
         description=gist.description

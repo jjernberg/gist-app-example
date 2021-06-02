@@ -65,7 +65,7 @@ def get_all_by_username(username: str) -> Iterable[Gist]:
         gists: List[Gist] = []
         # Loop through returned gists to setup a List of Gist objects
         for gist in data:
-            gists.append(_setup_gist_from_data(data))
+            gists.append(_setup_gist_from_data(gist))
         return gists
     except Exception:
         # Going to swallow up errors for now and just return an empty list as if they had none

@@ -5,6 +5,7 @@ from rest_framework.response import Response
 
 from .models import FavoriteGist, FavoriteGistFile
 from .services import get_all_by_username, get_gist_by_id
+from .serializers import GistSerializer
 
 
 @api_view(['GET'])
@@ -15,7 +16,14 @@ def by_username(request, username: str) -> Response:
     :param username:
     :return:
     """
-    return Response()
+    gists = get_all_by_username(username)
+    # Get a flat list of favorite IDs to compare to retrieved gists
+    favorites = FavoriteGist.objects.values('gist_id')
+    for gist in gists:
+        # If the gist_id is in the favorites then flip the favorite
+        gist.favorite = gist.gist_id in favorites
+    serializer = GistSerializer(gists, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
